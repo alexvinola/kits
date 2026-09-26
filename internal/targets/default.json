@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "targets": [
+    {
+      "name": "claude",
+      "description": "Claude Code",
+      "root_file": "CLAUDE.md",
+      "skills_dir": ".claude/skills/{skill}",
+      "agents_dir": ".claude/agents/{agent}.md"
+    },
+    {
+      "name": "cursor",
+      "description": "Cursor",
+      "root_file": "AGENTS.md",
+      "skills_dir": ".cursor/skills/{skill}"
+    },
+    {
+      "name": "copilot",
+      "description": "GitHub Copilot",
+      "root_file": ".github/copilot-instructions.md",
+      "skills_dir": ".github/skills/{skill}"
+    },
+    {
+      "name": "agents",
+      "description": "Generic AGENTS.md",
+      "root_file": "AGENTS.md"
+    }
+  ]
+}
