@@ -10,7 +10,7 @@ func TestDefaultIsValid(t *testing.T) {
 	if err != nil {
 		t.Fatalf("embedded default: %v", err)
 	}
-	for _, name := range []string{"claude", "cursor", "copilot", "agents"} {
+	for _, name := range []string{"claude", "cursor", "copilot", "codex", "agents"} {
 		if _, ok := cfg.Get(name); !ok {
 			t.Errorf("default config lacks target %q", name)
 		}

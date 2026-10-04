@@ -46,7 +46,7 @@ func TestTargetsDefault(t *testing.T) {
 	if code != ExitOK {
 		t.Fatalf("exit %d, stderr: %s", code, errOut)
 	}
-	for _, want := range []string{"claude", "cursor", "copilot", "agents", "CLAUDE.md"} {
+	for _, want := range []string{"claude", "cursor", "copilot", "codex", "agents", "CLAUDE.md"} {
 		if !strings.Contains(out, want) {
 			t.Errorf("output lacks %q:\n%s", want, out)
 		}

@@ -18,7 +18,14 @@
       "name": "copilot",
       "description": "GitHub Copilot",
       "root_file": ".github/copilot-instructions.md",
-      "skills_dir": ".github/skills/{skill}"
+      "skills_dir": ".github/skills/{skill}",
+      "agents_dir": ".github/agents/{agent}.agent.md"
+    },
+    {
+      "name": "codex",
+      "description": "OpenAI Codex",
+      "root_file": "AGENTS.md",
+      "skills_dir": ".agents/skills/{skill}"
     },
     {
       "name": "agents",

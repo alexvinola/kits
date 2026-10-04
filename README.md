@@ -2,7 +2,7 @@
 
 Install **kits** — instructions, skills and subagents for coding agents — into
 new or existing projects, placed where each agent expects them:
-Claude Code, Cursor, GitHub Copilot, or any tool that reads `AGENTS.md`.
+Claude Code, Cursor, GitHub Copilot, Codex, or any tool that reads `AGENTS.md`.
 
 - Single static binary, no dependencies beyond `git`.
 - Kits are fetched from a git repository with a shallow, sparse checkout of just
@@ -73,6 +73,7 @@ by default; `%AppData%\kits\config.json` on Windows). `--repo`, `--ref` and
 ```sh
 kits init core java-springboot-modulith      # detection mode
 kits init core --target claude               # create what is missing, asking first
+kits init core ia-base ia-agents --target codex --yes
 kits targets                           # list configured targets
 ```
 
@@ -144,7 +145,9 @@ touched:
 A symlinked root file (e.g. `CLAUDE.md -> AGENTS.md`) is written through, once.
 
 **Skills and subagents.** Each skill directory is copied to the target's
-`skills_dir`; each agent file to its `agents_dir`.
+`skills_dir`; each agent file to its `agents_dir`. The selected target determines
+the paths and filename suffixes. YAML frontmatter is copied unchanged; it describes
+the skill/agent, not where kits installs it.
 
 **`kits.lock.json`.** Records every file kits wrote with its hash,
 and where each kit came from (repository, ref, commit). Commit it. On the next
@@ -192,15 +195,29 @@ The built-in config ([internal/targets/default.json](internal/targets/default.js
 |---|---|---|---|
 | `claude` | `CLAUDE.md` | `.claude/skills/{skill}` | `.claude/agents/{agent}.md` |
 | `cursor` | `AGENTS.md` | `.cursor/skills/{skill}` | — |
-| `copilot` | `.github/copilot-instructions.md` | `.github/skills/{skill}` | — |
+| `copilot` | `.github/copilot-instructions.md` | `.github/skills/{skill}` | `.github/agents/{agent}.agent.md` |
+| `codex` | `AGENTS.md` | `.agents/skills/{skill}` | — |
 | `agents` | `AGENTS.md` | — | — |
 
-The skills paths are documented by [Cursor](https://cursor.com/docs/skills) and
-[GitHub Copilot](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills)
-(checked September 2026). Agents are currently installed only for Claude Code.
-Cursor also supports `.cursor/agents/`; Copilot uses `.github/agents/*.agent.md`.
-Supporting their agent formats requires a tested adapter, not just a new path.
-Kits can ship portable review skills for use across all skills-capable targets.
+Paths follow the documentation for [Cursor](https://cursor.com/docs/skills),
+[GitHub Copilot skills](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills)
+and [Codex skills](https://learn.chatgpt.com/docs/build-skills).
+Codex's `AGENTS.md` contains instructions scoped by directory; `.agents/skills`
+is the separate location for on-demand skills. Use `codex` for both, or retain
+`agents` for instructions only. To install into a subproject, use `--dir backend`;
+paths in this table are relative to that directory. Kits does not recursively
+create instructions in every source directory.
+
+Claude and Copilot can share simple subagent definitions with `name`, `description`
+and `tools: Read, Grep, Glob, Bash`: [Copilot documents these tool aliases](https://docs.github.com/en/copilot/reference/custom-agents-configuration).
+Use this common subset for agents installed into both tools. Kits does not translate
+or validate tool-specific frontmatter such as Claude's `permissionMode`, `hooks`,
+model aliases or MCP tool names. Do not assume those settings are portable.
+Reference skills by name or the destination's skill directory in the agent body.
+The CLI tests verify file placement and preservation, not execution inside an IDE.
+
+Cursor and Codex do not receive these Markdown subagent definitions in the current
+mapping; portable review skills remain available to them.
 
 Supporting another coding tool, or fixing a path, is an edit to that file and a new release.
 Each target has:
