@@ -8,7 +8,7 @@
 class Kits < Formula
   desc "Install instruction and skill kits into projects for any coding agent"
   homepage "https://github.com/alexvinola/kits"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
 
   depends_on "git"
@@ -16,22 +16,22 @@ class Kits < Formula
   on_macos do
     on_arm do
       url "https://github.com/alexvinola/kits/releases/download/v#{version}/kits-darwin-arm64"
-      sha256 "c6e82e95b08dd729b4b0a7aa008a148e35c17204f2ac9e6d432b109b99dc8e84"
+      sha256 "b6a3db51e805b934b96c53bc5d2def10279af136a0e6e0b381e837f85229daa9"
     end
     on_intel do
       url "https://github.com/alexvinola/kits/releases/download/v#{version}/kits-darwin-amd64"
-      sha256 "ac887f63eec95ca4693cbb9031621ccbd3e1042b1e5487856475d34bcafe8ede"
+      sha256 "798061eef3b3b9f3c235fe2aff4b3e8c4874c731b0a4a5f873ab5e0ccb89dcf1"
     end
   end
 
   on_linux do
     on_arm do
       url "https://github.com/alexvinola/kits/releases/download/v#{version}/kits-linux-arm64"
-      sha256 "8c9925df5cf2d658266cf91c60155adf179639e19e4f8d564dc5dfddf03517a9"
+      sha256 "994b4ea2ed02676dc9ac96d3cc8da3915bb77c204f38abf45adcfdab1d8fe749"
     end
     on_intel do
       url "https://github.com/alexvinola/kits/releases/download/v#{version}/kits-linux-amd64"
-      sha256 "aa72a4b70cff5c0889c6b98a87909265b9a47bebb42b87c5acf3f1bc7dcb7f3e"
+      sha256 "5f94c719db0e592d8fd56e9f2da3c16cbe849f429e8aca93c7eca8ebbbeb2921"
     end
   end
 
